@@ -1,0 +1,14 @@
+C:\Users\matik\Documents\PixiuTracker\DatabaseContext\bin\Debug\net5.0\DatabaseContext.deps.json
+C:\Users\matik\Documents\PixiuTracker\DatabaseContext\bin\Debug\net5.0\DatabaseContext.runtimeconfig.json
+C:\Users\matik\Documents\PixiuTracker\DatabaseContext\bin\Debug\net5.0\DatabaseContext.runtimeconfig.dev.json
+C:\Users\matik\Documents\PixiuTracker\DatabaseContext\bin\Debug\net5.0\DatabaseContext.dll
+C:\Users\matik\Documents\PixiuTracker\DatabaseContext\bin\Debug\net5.0\ref\DatabaseContext.dll
+C:\Users\matik\Documents\PixiuTracker\DatabaseContext\bin\Debug\net5.0\DatabaseContext.pdb
+C:\Users\matik\Documents\PixiuTracker\DatabaseContext\obj\Debug\net5.0\DatabaseContext.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\matik\Documents\PixiuTracker\DatabaseContext\obj\Debug\net5.0\DatabaseContext.AssemblyInfoInputs.cache
+C:\Users\matik\Documents\PixiuTracker\DatabaseContext\obj\Debug\net5.0\DatabaseContext.AssemblyInfo.cs
+C:\Users\matik\Documents\PixiuTracker\DatabaseContext\obj\Debug\net5.0\DatabaseContext.csproj.CoreCompileInputs.cache
+C:\Users\matik\Documents\PixiuTracker\DatabaseContext\obj\Debug\net5.0\DatabaseContext.dll
+C:\Users\matik\Documents\PixiuTracker\DatabaseContext\obj\Debug\net5.0\ref\DatabaseContext.dll
+C:\Users\matik\Documents\PixiuTracker\DatabaseContext\obj\Debug\net5.0\DatabaseContext.pdb
+C:\Users\matik\Documents\PixiuTracker\DatabaseContext\obj\Debug\net5.0\DatabaseContext.genruntimeconfig.cache
