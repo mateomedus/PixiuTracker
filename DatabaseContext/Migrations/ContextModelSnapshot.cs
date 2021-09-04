@@ -20,9 +20,10 @@ namespace DatabaseContext.Migrations
 
             modelBuilder.Entity("DatabaseContext.Models.BinanceUser", b =>
                 {
-                    b.Property<string>("Username")
-                        .HasMaxLength(32)
-                        .HasColumnType("character varying(32)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("ApiKey")
                         .IsRequired()
@@ -39,28 +40,23 @@ namespace DatabaseContext.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("character varying(128)");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasMaxLength(64)
-                        .HasColumnType("character varying(64)");
-
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
-                    b.HasKey("Username");
+                    b.Property<int>("PorfolioID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.HasKey("Id");
 
                     b.HasIndex("Email")
                         .IsUnique()
                         .HasDatabaseName("IX_BinanceUser_Email");
 
-                    b.HasIndex("Username", "Password")
+                    b.HasIndex("Id", "Password")
                         .IsUnique()
                         .HasDatabaseName("IX_BinanceUser_Username_Password");
 
@@ -69,22 +65,39 @@ namespace DatabaseContext.Migrations
 
             modelBuilder.Entity("DatabaseContext.Models.Coin", b =>
                 {
+                    b.Property<string>("Name")
+                        .ValueGeneratedOnAdd()
+                        .HasMaxLength(15)
+                        .HasColumnType("character varying(15)");
+
+                    b.Property<long>("Price")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Name");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasDatabaseName("IX_Coin_Id");
+
+                    b.ToTable("Coin");
+                });
+
+            modelBuilder.Entity("DatabaseContext.Models.Portfolio", b =>
+                {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<long>("Amount")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("CoinID")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Id")
-                        .IsUnique()
-                        .HasDatabaseName("IX_Coin_Id");
-
-                    b.ToTable("Coin");
+                    b.ToTable("Portfolio");
                 });
 #pragma warning restore 612, 618
         }

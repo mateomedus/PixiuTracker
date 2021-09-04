@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PixiuTracker", "PixiuTracker.csproj", "{58E875AA-98D8-47CD-8090-B7DA898C8D6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PixiuTracker", "PixiuTracker.csproj", "{58E875AA-98D8-47CD-8090-B7DA898C8D6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseContext", "..\DatabaseContext\DatabaseContext.csproj", "{B771E444-3EA3-42C8-B110-1859214D946F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseContext", "..\DatabaseContext\DatabaseContext.csproj", "{B771E444-3EA3-42C8-B110-1859214D946F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

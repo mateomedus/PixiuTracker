@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using PixiuTracker.Helpers;
 
 namespace PixiuTracker
 {
@@ -21,10 +22,11 @@ namespace PixiuTracker
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddCors();
             services.AddControllers();
             services.AddDatabaseAccess(Configuration["ConnectionString"]);
             services.AddMapperServices();
+            services.AddScoped<JwtService>();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PixiuTracker", Version = "v1" });
@@ -45,6 +47,12 @@ namespace PixiuTracker
 
             app.UseRouting();
 
+            app.UseCors(options => options
+                .WithOrigins(new[] {"https://localhost:3000"})
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials()
+               ); 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

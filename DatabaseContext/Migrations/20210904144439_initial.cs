@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DatabaseContext.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,13 +12,12 @@ namespace DatabaseContext.Migrations
                 columns: table => new
                 {
                     Username = table.Column<string>(type: "character varying(32)", maxLength: 32, nullable: false),
-                    FirstName = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
-                    LastName = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: false),
                     Password = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     Email = table.Column<string>(type: "character varying(128)", maxLength: 128, nullable: false),
                     ApiKey = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     ApiSecret = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: false),
                     PorfolioID = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 },
                 constraints: table =>
                 {

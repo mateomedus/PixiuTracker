@@ -18,7 +18,7 @@ namespace DatabaseContext
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BinanceUser>()
-                .HasIndex(u => new { u.Username, u.Password })
+                .HasIndex(u => new { u.Id, u.Password })
                 .IsUnique()
                 .HasDatabaseName("IX_BinanceUser_Username_Password");
 

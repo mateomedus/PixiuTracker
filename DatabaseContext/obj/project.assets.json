@@ -937,24 +937,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\matik\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\aguss\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\matik\\Documents\\PixiuTracker\\DatabaseContext\\DatabaseContext.csproj",
+      "projectUniqueName": "C:\\Users\\aguss\\source\\repos\\PixiuTracker\\DatabaseContext\\DatabaseContext.csproj",
       "projectName": "DatabaseContext",
-      "projectPath": "C:\\Users\\matik\\Documents\\PixiuTracker\\DatabaseContext\\DatabaseContext.csproj",
-      "packagesPath": "C:\\Users\\matik\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\matik\\Documents\\PixiuTracker\\DatabaseContext\\obj\\",
+      "projectPath": "C:\\Users\\aguss\\source\\repos\\PixiuTracker\\DatabaseContext\\DatabaseContext.csproj",
+      "packagesPath": "C:\\Users\\aguss\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\aguss\\source\\repos\\PixiuTracker\\DatabaseContext\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\matik\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\aguss\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1014,7 +1013,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
       }
     }
   },
