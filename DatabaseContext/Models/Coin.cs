@@ -8,9 +8,13 @@ namespace DatabaseContext.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        [MaxLength(15)]
+        public string Name { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public long Price { get; set; }
+
+
+
     }
 }

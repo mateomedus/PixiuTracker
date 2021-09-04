@@ -13,6 +13,8 @@ namespace DatabaseContext
 
         public virtual DbSet<Coin> Coins { get; set; }
 
+        public virtual DbSet<Portfolio> Portfolios { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BinanceUser>()
@@ -26,7 +28,7 @@ namespace DatabaseContext
                 .HasDatabaseName("IX_BinanceUser_Email");
 
             modelBuilder.Entity<Coin>()
-                .HasIndex(c => c.Id)
+                .HasIndex(c => c.Name)
                 .IsUnique()
                 .HasDatabaseName("IX_Coin_Id");
         }

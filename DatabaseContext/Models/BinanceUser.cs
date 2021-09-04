@@ -38,5 +38,8 @@ namespace DatabaseContext.Models
         [Required]
         [MaxLength(256)]
         public string ApiSecret { get; set; }
+
+        [Required]
+        public int PorfolioID { get; set; }
     }
 }
