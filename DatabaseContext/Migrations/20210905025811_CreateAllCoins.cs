@@ -8,7 +8,7 @@ namespace DatabaseContext.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            var client = CustomBinanceClient.GetInstance("azmnlAv1bBa5mpk6XMkwSPcQEEFuMUwrlXRtD6ownafLPjRObaWCHqAyWDEaSVgb", "uZ4pAe8ihACDZbgjs2Z5mVmRHItZBckyv6bEA4HbWXPK1wrDOP8wv8OFvE06mPm9");
+            var client = CustomBinanceClient.GetInstance();
 
             var prices = client.Spot.Market.GetPricesAsync().Result;
 
