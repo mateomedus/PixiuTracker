@@ -12,5 +12,6 @@ namespace ExternalLibrary
             {
                 ApiCredentials = new ApiCredentials(apiKey, apiSecret)
             });
+        
     }
 }

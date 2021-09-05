@@ -40,11 +40,11 @@ namespace PixiuTracker.Controllers
             // Pero si es necesario, hay que aplicar logica sobre las inputs 
             // Por ejemplo acá podrían checkear que efectivamente el email sea un email o cosas asi. Ya que, si bien el framework se asegura que te llegue algo en email, no te puede asegura que carajo te mandaron.
 
-            var binanceClient = CustomBinanceClient.GetInstance(registerForm.ApiKey, registerForm.ApiSecret);
+            var binanceClient = CustomBinanceClient.GetInstance(registerForm.ApiKey, registerForm.ApiSecret);            
 
             var result = await binanceClient.General.GetAccountInfoAsync();
 
-            if (result.Error == null)
+            if (result.Error != null)
             {
                 return new ConflictResult();
             }
@@ -70,6 +70,7 @@ namespace PixiuTracker.Controllers
         {
 
             var user = await context.Users.FirstOrDefaultAsync(u => u.Email == loginForm.Email);
+
 
             if (user == null) return BadRequest(new { message = "Invalid Credentials" });
             else
@@ -131,21 +132,57 @@ namespace PixiuTracker.Controllers
 
         }
 
-        [HttpGet("prices")]
-        public async Task<IActionResult> Test() 
+        [HttpGet("portfolio")]
+        public async Task<IActionResult> Portfolio() 
         {
-            var client = CustomBinanceClient.GetInstance("azmnlAv1bBa5mpk6XMkwSPcQEEFuMUwrlXRtD6ownafLPjRObaWCHqAyWDEaSVgb", "uZ4pAe8ihACDZbgjs2Z5mVmRHItZBckyv6bEA4HbWXPK1wrDOP8wv8OFvE06mPm9");
+            try
+            {
+                var jwt = Request.Cookies["jwt"];
 
-            var prices = (await client.Spot.Market.GetPricesAsync());
+                var token = jwtService.Verify(jwt);
 
-            var asd = prices.Data.OrderBy(p => p.Symbol).Where(p => p.Symbol.EndsWith("USDT")).ToList();
+                int userId = int.Parse(token.Issuer);
 
+                var user = context.Users.SingleOrDefault(u => u.Id == userId);
 
-            /*
-            */
+                var client = CustomBinanceClient.GetInstance(user.ApiKey, user.ApiSecret);
+
+                var result = await client.General.GetAccountInfoAsync();
+
+                var portfolioId = user.PortfolioId;
+
+                if (result.Error == null)
+                {
+                    var balance = result.Data.Balances.ToList();
+                    foreach (var b in balance)
+                    {
+                        if (b.Free > 0)
+                        {
+                            PortfolioCoin portfolioCoin = new PortfolioCoin();
+                            portfolioCoin.PortfolioId = portfolioId;
+                            var coin = context.Coins.SingleOrDefault(c => c.Name == b.Asset);
+                            if (coin != null)
+                            {
+                                portfolioCoin.CoinId = coin.Id;
+                                portfolioCoin.Amount = b.Free;
+                                context.Add(portfolioCoin);
+                            }
+                        }
+                    }
+                    await context.SaveChangesAsync();
+                }
+            }
+            catch (Exception)
+            {
+                return Unauthorized();
+            }
 
             return new OkResult();
         }
-              
+
+
+
+
+
     }
 }

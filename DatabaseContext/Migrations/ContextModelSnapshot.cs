@@ -106,8 +106,8 @@ namespace DatabaseContext.Migrations
                     b.Property<int>("CoinId")
                         .HasColumnType("integer");
 
-                    b.Property<long>("Amount")
-                        .HasColumnType("bigint");
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric");
 
                     b.HasKey("PortfolioId", "CoinId");
 

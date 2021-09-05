@@ -22,7 +22,7 @@ namespace DatabaseContext.Models
 
 
         [Required]
-        public long Amount { get; set; }
+        public decimal Amount { get; set; }
 
 
         }
