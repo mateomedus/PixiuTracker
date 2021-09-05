@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "Gux3VkkG+CcSBw2bwJz50gmSy0EUsNSdO0eI3fYEwCt0ivjCA2525fjbzXnIeD+9LZu8708SPBQpxahE4J9fKw==",
+  "dgSpecHash": "qQggJy41/Ct85vibr6u3qj6qUfqu+OlJaybCsFjBhS+p1YatF732mvkyRh4jf/7VLHygDh6f+zqpc5sitXfhXw==",
   "success": true,
   "projectFilePath": "C:\\Users\\aguss\\source\\repos\\PixiuTracker\\DatabaseContext\\DatabaseContext.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\aguss\\.nuget\\packages\\binance.net\\7.1.2\\binance.net.7.1.2.nupkg.sha512",
+    "C:\\Users\\aguss\\.nuget\\packages\\cryptoexchange.net\\4.0.8\\cryptoexchange.net.4.0.8.nupkg.sha512",
     "C:\\Users\\aguss\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\aguss\\.nuget\\packages\\microsoft.aspnet.razor\\3.2.7\\microsoft.aspnet.razor.3.2.7.nupkg.sha512",
     "C:\\Users\\aguss\\.nuget\\packages\\microsoft.aspnet.webpages\\3.2.7\\microsoft.aspnet.webpages.3.2.7.nupkg.sha512",
@@ -24,6 +26,7 @@
     "C:\\Users\\aguss\\.nuget\\packages\\microsoft.extensions.options\\5.0.0\\microsoft.extensions.options.5.0.0.nupkg.sha512",
     "C:\\Users\\aguss\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512",
     "C:\\Users\\aguss\\.nuget\\packages\\microsoft.web.infrastructure\\1.0.0\\microsoft.web.infrastructure.1.0.0.nupkg.sha512",
+    "C:\\Users\\aguss\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\aguss\\.nuget\\packages\\npgsql\\5.0.7\\npgsql.5.0.7.nupkg.sha512",
     "C:\\Users\\aguss\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\5.0.7\\npgsql.entityframeworkcore.postgresql.5.0.7.nupkg.sha512",
     "C:\\Users\\aguss\\.nuget\\packages\\system.collections.immutable\\5.0.0\\system.collections.immutable.5.0.0.nupkg.sha512",

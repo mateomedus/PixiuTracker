@@ -5,9 +5,6 @@ namespace PixiuTracker.Forms
     public class RegisterUserForm
     {
         [Required]
-        public string Username { get; set; }
-
-        [Required]
         public string Password { get; set; }
 
         [Required]

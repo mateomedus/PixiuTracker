@@ -26,6 +26,7 @@
       "PixiuTracker/1.0.0": {
         "dependencies": {
           "AutoMapper": "10.1.1",
+          "BinanceClient": "1.0.0",
           "DatabaseContext": "1.0.0",
           "Microsoft.AspNetCore.Cors": "2.2.0",
           "Microsoft.EntityFrameworkCore.Design": "5.0.9",
@@ -335,6 +336,35 @@
           "lib/netstandard2.0/AutoMapper.dll": {}
         }
       },
+      "Binance.Net/7.1.2": {
+        "dependencies": {
+          "CryptoExchange.Net": "4.0.8"
+        },
+        "runtime": {
+          "lib/netstandard2.1/Binance.Net.dll": {
+            "assemblyVersion": "7.1.0.0",
+            "fileVersion": "7.1.2.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.1/Binance.Net.dll": {}
+        }
+      },
+      "CryptoExchange.Net/4.0.8": {
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "5.0.0",
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "runtime": {
+          "lib/netstandard2.1/CryptoExchange.Net.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.8.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.1/CryptoExchange.Net.dll": {}
+        }
+      },
       "Humanizer.Core/2.8.26": {
         "runtime": {
           "lib/netstandard2.0/Humanizer.dll": {
@@ -599,6 +629,17 @@
           "lib/net40/Microsoft.Web.Infrastructure.dll": {}
         }
       },
+      "Newtonsoft.Json/12.0.3": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.3.23909"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {}
+        }
+      },
       "Npgsql/5.0.7": {
         "dependencies": {
           "System.Runtime.CompilerServices.Unsafe": "4.6.0"
@@ -718,8 +759,20 @@
       "System.Runtime.CompilerServices.Unsafe/4.6.0": {},
       "System.Security.Cryptography.Cng/4.5.0": {},
       "System.Text.Encodings.Web/4.5.0": {},
+      "BinanceClient/1.0.0": {
+        "dependencies": {
+          "Binance.Net": "7.1.2"
+        },
+        "runtime": {
+          "BinanceClient.dll": {}
+        },
+        "compile": {
+          "BinanceClient.dll": {}
+        }
+      },
       "DatabaseContext/1.0.0": {
         "dependencies": {
+          "BinanceClient": "1.0.0",
           "Microsoft.AspNet.WebPages": "3.2.7",
           "Microsoft.EntityFrameworkCore": "5.0.9",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "5.0.7"
@@ -2432,6 +2485,20 @@
       "path": "automapper/10.1.1",
       "hashPath": "automapper.10.1.1.nupkg.sha512"
     },
+    "Binance.Net/7.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qPiNtLHzECCznx7ur9RBpZlbPtZq65AwA8TjjyoYyr9SK2X+I21u7lCXO7+bR3TNsaEGpj34obAZ2JF/h08Hbg==",
+      "path": "binance.net/7.1.2",
+      "hashPath": "binance.net.7.1.2.nupkg.sha512"
+    },
+    "CryptoExchange.Net/4.0.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2x+2cFBhbiGhs0pSAlUlMJx7hRHe0Ah2YNqBVBbKus9Kqy+vMcdvcqzXAwFBI02CA1c2pBMbaOKqIRfT77e6HQ==",
+      "path": "cryptoexchange.net/4.0.8",
+      "hashPath": "cryptoexchange.net.4.0.8.nupkg.sha512"
+    },
     "Humanizer.Core/2.8.26": {
       "type": "package",
       "serviceable": true,
@@ -2642,6 +2709,13 @@
       "path": "microsoft.web.infrastructure/1.0.0",
       "hashPath": "microsoft.web.infrastructure.1.0.0.nupkg.sha512"
     },
+    "Newtonsoft.Json/12.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
+      "path": "newtonsoft.json/12.0.3",
+      "hashPath": "newtonsoft.json.12.0.3.nupkg.sha512"
+    },
     "Npgsql/5.0.7": {
       "type": "package",
       "serviceable": true,
@@ -2746,6 +2820,11 @@
       "sha512": "sha512-Xg4G4Indi4dqP1iuAiMSwpiWS54ZghzR644OtsRCm/m/lBMG8dUBhLVN7hLm8NNrNTR+iGbshCPTwrvxZPlm4g==",
       "path": "system.text.encodings.web/4.5.0",
       "hashPath": "system.text.encodings.web.4.5.0.nupkg.sha512"
+    },
+    "BinanceClient/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "DatabaseContext/1.0.0": {
       "type": "project",

@@ -10,6 +10,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Helpers;
+using ExternalLibrary;
 
 namespace PixiuTracker.Controllers
 {
@@ -39,11 +40,22 @@ namespace PixiuTracker.Controllers
             // Pero si es necesario, hay que aplicar logica sobre las inputs 
             // Por ejemplo acá podrían checkear que efectivamente el email sea un email o cosas asi. Ya que, si bien el framework se asegura que te llegue algo en email, no te puede asegura que carajo te mandaron.
 
+            var binanceClient = CustomBinanceClient.GetInstance(registerForm.ApiKey, registerForm.ApiSecret);
+
+            var result = await binanceClient.General.GetAccountInfoAsync();
+
+            if (result.Error == null)
+            {
+                return new ConflictResult();
+            }
+
             // Las inputs estan ok? Mapear a user
+            // en este punto podemos conectar con binance
             var binanceUser = map.Map<BinanceUser>(registerForm, opt =>
             {
                 opt.AfterMap((src, dest) => dest.Portfolio = new Portfolio());
             });
+
             //si es necesario hacer lógica antes o despues del mapeo se hace acá. Link: https://docs.automapper.org/en/stable/Before-and-after-map-actions.html
 
             //Guardar en DB
@@ -77,7 +89,7 @@ namespace PixiuTracker.Controllers
                 SameSite = SameSiteMode.None,
                 Secure = true
             });
-            
+
             return Ok("Success");
         }
 
@@ -96,7 +108,7 @@ namespace PixiuTracker.Controllers
 
                 return Ok(user);
             }
-            catch (Exception )
+            catch (Exception)
             {
                 return Unauthorized();
             }
@@ -106,7 +118,7 @@ namespace PixiuTracker.Controllers
         [HttpPost("logout")]
         public IActionResult Logout()
         {
-            Response.Cookies.Append("jwt", string.Empty , new CookieOptions
+            Response.Cookies.Append("jwt", string.Empty, new CookieOptions
             {
                 SameSite = SameSiteMode.None,
                 Secure = true
@@ -117,6 +129,22 @@ namespace PixiuTracker.Controllers
             }
             );
 
+        }
+
+        [HttpGet("prices")]
+        public async Task<IActionResult> Test() 
+        {
+            var client = CustomBinanceClient.GetInstance("azmnlAv1bBa5mpk6XMkwSPcQEEFuMUwrlXRtD6ownafLPjRObaWCHqAyWDEaSVgb", "uZ4pAe8ihACDZbgjs2Z5mVmRHItZBckyv6bEA4HbWXPK1wrDOP8wv8OFvE06mPm9");
+
+            var prices = (await client.Spot.Market.GetPricesAsync());
+
+            var asd = prices.Data.OrderBy(p => p.Symbol).Where(p => p.Symbol.EndsWith("USDT")).ToList();
+
+
+            /*
+            */
+
+            return new OkResult();
         }
               
     }

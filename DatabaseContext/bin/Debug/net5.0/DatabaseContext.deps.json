@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v5.0": {
       "DatabaseContext/1.0.0": {
         "dependencies": {
+          "BinanceClient": "1.0.0",
           "Microsoft.AspNet.WebPages": "3.2.7",
           "Microsoft.EntityFrameworkCore": "5.0.9",
           "Microsoft.EntityFrameworkCore.Tools": "5.0.9",
@@ -15,6 +16,29 @@
         },
         "runtime": {
           "DatabaseContext.dll": {}
+        }
+      },
+      "Binance.Net/7.1.2": {
+        "dependencies": {
+          "CryptoExchange.Net": "4.0.8"
+        },
+        "runtime": {
+          "lib/netstandard2.1/Binance.Net.dll": {
+            "assemblyVersion": "7.1.0.0",
+            "fileVersion": "7.1.2.0"
+          }
+        }
+      },
+      "CryptoExchange.Net/4.0.8": {
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "5.0.0",
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "runtime": {
+          "lib/netstandard2.1/CryptoExchange.Net.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.8.0"
+          }
         }
       },
       "Humanizer.Core/2.8.26": {
@@ -221,6 +245,14 @@
           }
         }
       },
+      "Newtonsoft.Json/12.0.3": {
+        "runtime": {
+          "lib/netstandard2.0/Newtonsoft.Json.dll": {
+            "assemblyVersion": "12.0.0.0",
+            "fileVersion": "12.0.3.23909"
+          }
+        }
+      },
       "Npgsql/5.0.7": {
         "dependencies": {
           "System.Runtime.CompilerServices.Unsafe": "4.6.0"
@@ -256,7 +288,15 @@
           }
         }
       },
-      "System.Runtime.CompilerServices.Unsafe/4.6.0": {}
+      "System.Runtime.CompilerServices.Unsafe/4.6.0": {},
+      "BinanceClient/1.0.0": {
+        "dependencies": {
+          "Binance.Net": "7.1.2"
+        },
+        "runtime": {
+          "BinanceClient.dll": {}
+        }
+      }
     }
   },
   "libraries": {
@@ -264,6 +304,20 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "Binance.Net/7.1.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qPiNtLHzECCznx7ur9RBpZlbPtZq65AwA8TjjyoYyr9SK2X+I21u7lCXO7+bR3TNsaEGpj34obAZ2JF/h08Hbg==",
+      "path": "binance.net/7.1.2",
+      "hashPath": "binance.net.7.1.2.nupkg.sha512"
+    },
+    "CryptoExchange.Net/4.0.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-2x+2cFBhbiGhs0pSAlUlMJx7hRHe0Ah2YNqBVBbKus9Kqy+vMcdvcqzXAwFBI02CA1c2pBMbaOKqIRfT77e6HQ==",
+      "path": "cryptoexchange.net/4.0.8",
+      "hashPath": "cryptoexchange.net.4.0.8.nupkg.sha512"
     },
     "Humanizer.Core/2.8.26": {
       "type": "package",
@@ -405,6 +459,13 @@
       "path": "microsoft.web.infrastructure/1.0.0",
       "hashPath": "microsoft.web.infrastructure.1.0.0.nupkg.sha512"
     },
+    "Newtonsoft.Json/12.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6mgjfnRB4jKMlzHSl+VD+oUc1IebOZabkbyWj2RiTgWwYPPuaK1H97G1sHqGwPlS5npiF5Q0OrxN1wni2n5QWg==",
+      "path": "newtonsoft.json/12.0.3",
+      "hashPath": "newtonsoft.json.12.0.3.nupkg.sha512"
+    },
     "Npgsql/5.0.7": {
       "type": "package",
       "serviceable": true,
@@ -446,6 +507,11 @@
       "sha512": "sha512-HxozeSlipUK7dAroTYwIcGwKDeOVpQnJlpVaOkBz7CM4TsE5b/tKlQBZecTjh6FzcSbxndYaxxpsBMz+wMJeyw==",
       "path": "system.runtime.compilerservices.unsafe/4.6.0",
       "hashPath": "system.runtime.compilerservices.unsafe.4.6.0.nupkg.sha512"
+    },
+    "BinanceClient/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }
