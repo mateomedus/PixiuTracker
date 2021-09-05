@@ -26,3 +26,7 @@ C:\Users\aguss\Source\Repos\PixiuTracker\DatabaseContext\obj\Debug\net5.0\Databa
 C:\Users\aguss\Source\Repos\PixiuTracker\DatabaseContext\obj\Debug\net5.0\ref\DatabaseContext.dll
 C:\Users\aguss\Source\Repos\PixiuTracker\DatabaseContext\obj\Debug\net5.0\DatabaseContext.pdb
 C:\Users\aguss\Source\Repos\PixiuTracker\DatabaseContext\obj\Debug\net5.0\DatabaseContext.genruntimeconfig.cache
+C:\Users\aguss\source\repos\PixiuTracker\DatabaseContext\bin\Debug\net5.0\BinanceClient.dll
+C:\Users\aguss\source\repos\PixiuTracker\DatabaseContext\bin\Debug\net5.0\BinanceClient.pdb
+C:\Users\aguss\source\repos\PixiuTracker\DatabaseContext\obj\Debug\net5.0\DatabaseContext.csprojAssemblyReference.cache
+C:\Users\aguss\source\repos\PixiuTracker\DatabaseContext\obj\Debug\net5.0\DatabaseContext.csproj.CopyComplete

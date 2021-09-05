@@ -15,7 +15,7 @@ namespace DatabaseContext.Models
         public string Name { get; set; }
 
         [Required]
-        public long Price { get; set; }
+        public double Price { get; set; }
 
         public IList<PortfolioCoin> Portfolios { get; set; }
 
