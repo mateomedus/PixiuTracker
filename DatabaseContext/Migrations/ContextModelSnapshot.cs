@@ -45,16 +45,16 @@ namespace DatabaseContext.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
 
-                    b.Property<int>("PorfolioID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                    b.Property<int>("PortfolioId")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
                         .IsUnique()
                         .HasDatabaseName("IX_BinanceUser_Email");
+
+                    b.HasIndex("PortfolioId");
 
                     b.HasIndex("Id", "Password")
                         .IsUnique()
@@ -65,15 +65,19 @@ namespace DatabaseContext.Migrations
 
             modelBuilder.Entity("DatabaseContext.Models.Coin", b =>
                 {
-                    b.Property<string>("Name")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
                         .HasMaxLength(15)
                         .HasColumnType("character varying(15)");
 
                     b.Property<long>("Price")
                         .HasColumnType("bigint");
 
-                    b.HasKey("Name");
+                    b.HasKey("Id");
 
                     b.HasIndex("Name")
                         .IsUnique()
@@ -89,15 +93,67 @@ namespace DatabaseContext.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<long>("Amount")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("CoinID")
-                        .HasColumnType("integer");
-
                     b.HasKey("Id");
 
                     b.ToTable("Portfolio");
+                });
+
+            modelBuilder.Entity("DatabaseContext.Models.PortfolioCoin", b =>
+                {
+                    b.Property<int>("PortfolioId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("CoinId")
+                        .HasColumnType("integer");
+
+                    b.Property<long>("Amount")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("PortfolioId", "CoinId");
+
+                    b.HasIndex("CoinId");
+
+                    b.ToTable("PortfolioCoin");
+                });
+
+            modelBuilder.Entity("DatabaseContext.Models.BinanceUser", b =>
+                {
+                    b.HasOne("DatabaseContext.Models.Portfolio", "Portfolio")
+                        .WithMany()
+                        .HasForeignKey("PortfolioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Portfolio");
+                });
+
+            modelBuilder.Entity("DatabaseContext.Models.PortfolioCoin", b =>
+                {
+                    b.HasOne("DatabaseContext.Models.Coin", "Coin")
+                        .WithMany("Portfolios")
+                        .HasForeignKey("CoinId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("DatabaseContext.Models.Portfolio", "Portfolio")
+                        .WithMany("Coins")
+                        .HasForeignKey("PortfolioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Coin");
+
+                    b.Navigation("Portfolio");
+                });
+
+            modelBuilder.Entity("DatabaseContext.Models.Coin", b =>
+                {
+                    b.Navigation("Portfolios");
+                });
+
+            modelBuilder.Entity("DatabaseContext.Models.Portfolio", b =>
+                {
+                    b.Navigation("Coins");
                 });
 #pragma warning restore 612, 618
         }

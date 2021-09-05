@@ -43,18 +43,25 @@ namespace PixiuTracker
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PixiuTracker v1"));
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseCors(options => options
+            app.UseCors(p => p
+                .WithOrigins(new[] { "http://localhost:3000" })
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials()
+            );
+           /* app.UseCors(options => options
                 .WithOrigins(new[] {"https://localhost:3000"})
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials()
                ); 
+           */
             app.UseAuthorization();
-
+           
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

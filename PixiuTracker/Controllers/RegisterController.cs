@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using DatabaseContext;
 using DatabaseContext.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PixiuTracker.Forms;
 using PixiuTracker.Helpers;
 using System;
@@ -38,7 +40,10 @@ namespace PixiuTracker.Controllers
             // Por ejemplo acá podrían checkear que efectivamente el email sea un email o cosas asi. Ya que, si bien el framework se asegura que te llegue algo en email, no te puede asegura que carajo te mandaron.
 
             // Las inputs estan ok? Mapear a user
-            var binanceUser = map.Map<BinanceUser>(registerForm);
+            var binanceUser = map.Map<BinanceUser>(registerForm, opt =>
+            {
+                opt.AfterMap((src, dest) => dest.Portfolio = new Portfolio());
+            });
             //si es necesario hacer lógica antes o despues del mapeo se hace acá. Link: https://docs.automapper.org/en/stable/Before-and-after-map-actions.html
 
             //Guardar en DB
@@ -49,32 +54,28 @@ namespace PixiuTracker.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginUserForm loginForm)
+        public async Task<IActionResult> Login([FromBody] LoginUserForm loginForm)
         {
-            //El mismo framework se asegura que te haya llegado todo lo que hayas puesto como required
 
-            // Pero si es necesario, hay que aplicar logica sobre las inputs 
-            // Por ejemplo acá podrían checkear que efectivamente el email sea un email o cosas asi. Ya que, si bien el framework se asegura que te llegue algo en email, no te puede asegura que carajo te mandaron.
-
-            // Las inputs estan ok? Mapear a user
-            //var binanceUser = map.Map<BinanceUser>(loginForm);
-            //si es necesario hacer lógica antes o despues del mapeo se hace acá. Link: https://docs.automapper.org/en/stable/Before-and-after-map-actions.html
-
-            var user = context.Users.SingleOrDefault(u => u.Email == loginForm.Email);
+            var user = await context.Users.FirstOrDefaultAsync(u => u.Email == loginForm.Email);
 
             if (user == null) return BadRequest(new { message = "Invalid Credentials" });
             else
-                
-               if (!Crypto.VerifyHashedPassword(user.Password, loginForm.Password))
             {
-                return BadRequest(new { message = "Invalid Credentials" });
+                if (!Crypto.VerifyHashedPassword(user.Password, loginForm.Password))
+                {
+                    return BadRequest(new { message = "Invalid Credentials" });
+                }
             }
 
             var jwt = jwtService.Generate(user.Id);
 
-            Response.Cookies.Append("jwt", jwt, new Microsoft.AspNetCore.Http.CookieOptions
+            Response.Headers.Add("Access-Control-Expose-Headers", "Set-Cookie");
+
+            Response.Cookies.Append("jwt", jwt, new CookieOptions
             {
-                HttpOnly = true
+                SameSite = SameSiteMode.None,
+                Secure = true
             });
             
             return Ok("Success");
@@ -105,8 +106,11 @@ namespace PixiuTracker.Controllers
         [HttpPost("logout")]
         public IActionResult Logout()
         {
-            Response.Cookies.Delete("jwt");
-
+            Response.Cookies.Append("jwt", string.Empty , new CookieOptions
+            {
+                SameSite = SameSiteMode.None,
+                Secure = true
+            });
             return Ok(new
             {
                 message = "success"
@@ -114,15 +118,6 @@ namespace PixiuTracker.Controllers
             );
 
         }
-
-
-
-        /*/ POST /api/user/login 
-        [HttpPost("/login")]
-        public IActionResult Login()
-        {
-            return Quique.Gay;
-        }
-        */
+              
     }
 }

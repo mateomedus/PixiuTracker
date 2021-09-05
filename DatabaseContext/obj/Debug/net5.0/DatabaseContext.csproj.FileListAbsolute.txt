@@ -18,7 +18,6 @@ C:\Users\aguss\Source\Repos\PixiuTracker\DatabaseContext\bin\Debug\net5.0\Databa
 C:\Users\aguss\Source\Repos\PixiuTracker\DatabaseContext\bin\Debug\net5.0\DatabaseContext.dll
 C:\Users\aguss\Source\Repos\PixiuTracker\DatabaseContext\bin\Debug\net5.0\ref\DatabaseContext.dll
 C:\Users\aguss\Source\Repos\PixiuTracker\DatabaseContext\bin\Debug\net5.0\DatabaseContext.pdb
-C:\Users\aguss\Source\Repos\PixiuTracker\DatabaseContext\obj\Debug\net5.0\DatabaseContext.csprojAssemblyReference.cache
 C:\Users\aguss\Source\Repos\PixiuTracker\DatabaseContext\obj\Debug\net5.0\DatabaseContext.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\aguss\Source\Repos\PixiuTracker\DatabaseContext\obj\Debug\net5.0\DatabaseContext.AssemblyInfoInputs.cache
 C:\Users\aguss\Source\Repos\PixiuTracker\DatabaseContext\obj\Debug\net5.0\DatabaseContext.AssemblyInfo.cs

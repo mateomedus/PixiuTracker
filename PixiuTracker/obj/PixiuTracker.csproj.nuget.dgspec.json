@@ -128,6 +128,10 @@
               "target": "Package",
               "version": "[10.1.1, )"
             },
+            "Binance.Net": {
+              "target": "Package",
+              "version": "[7.1.2, )"
+            },
             "Microsoft.AspNetCore.Cors": {
               "target": "Package",
               "version": "[2.2.0, )"

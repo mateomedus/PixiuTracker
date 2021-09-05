@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "MKjDdDI1vAWk9Nr3BAYW3W6VRjOSrjhDjfDffildF+/Fmzyw8m4YJRwI6bSQ1AQJzngmExQ7ujuy+vBuX6o/TQ==",
+  "dgSpecHash": "h2ScvYx8KAbuU+3f8zyNGd8pWnxlQ91Won32tlcnZjKAG49ZheKvwjUyvmse9yr//tk+KKKZ70uiE+2jwu82Ng==",
   "success": true,
   "projectFilePath": "C:\\Users\\aguss\\source\\repos\\PixiuTracker\\PixiuTracker\\PixiuTracker.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\aguss\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
+    "C:\\Users\\aguss\\.nuget\\packages\\binance.net\\7.1.2\\binance.net.7.1.2.nupkg.sha512",
+    "C:\\Users\\aguss\\.nuget\\packages\\cryptoexchange.net\\4.0.8\\cryptoexchange.net.4.0.8.nupkg.sha512",
     "C:\\Users\\aguss\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\aguss\\.nuget\\packages\\microsoft.aspnet.razor\\3.2.7\\microsoft.aspnet.razor.3.2.7.nupkg.sha512",
     "C:\\Users\\aguss\\.nuget\\packages\\microsoft.aspnet.webpages\\3.2.7\\microsoft.aspnet.webpages.3.2.7.nupkg.sha512",
@@ -35,6 +37,7 @@
     "C:\\Users\\aguss\\.nuget\\packages\\microsoft.net.http.headers\\2.2.0\\microsoft.net.http.headers.2.2.0.nupkg.sha512",
     "C:\\Users\\aguss\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\aguss\\.nuget\\packages\\microsoft.web.infrastructure\\1.0.0\\microsoft.web.infrastructure.1.0.0.nupkg.sha512",
+    "C:\\Users\\aguss\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\aguss\\.nuget\\packages\\npgsql\\5.0.7\\npgsql.5.0.7.nupkg.sha512",
     "C:\\Users\\aguss\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\5.0.7\\npgsql.entityframeworkcore.postgresql.5.0.7.nupkg.sha512",
     "C:\\Users\\aguss\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",

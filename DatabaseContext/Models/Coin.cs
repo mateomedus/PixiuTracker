@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DatabaseContext.Models
@@ -8,13 +9,15 @@ namespace DatabaseContext.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
         [MaxLength(15)]
         public string Name { get; set; }
 
         [Required]
         public long Price { get; set; }
 
-
+        public IList<PortfolioCoin> Portfolios { get; set; }
 
     }
 }

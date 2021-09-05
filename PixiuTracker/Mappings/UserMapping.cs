@@ -13,6 +13,7 @@ namespace Mappings
             // Si hay diferente nombre o hay que hacer lógica extra (hashear la pass) se la define acá
             CreateMap<RegisterUserForm, BinanceUser>()
                 .ForMember(dest => dest.Password, opt => opt.MapFrom(src => Crypto.HashPassword(src.Password)));
+            
         }
     }
 }

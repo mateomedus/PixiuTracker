@@ -27,8 +27,10 @@ namespace DatabaseContext.Models
         [Required]
         [MaxLength(256)]
         public string ApiSecret { get; set; }
+        
+        [ForeignKey(nameof(PortfolioId))]
+        public Portfolio Portfolio { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int PorfolioID { get; set; }
+        public int PortfolioId { get; set; }
     }
 }
