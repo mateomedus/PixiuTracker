@@ -97,27 +97,6 @@ namespace PixiuTracker.Controllers
             return Ok("Success");
         }
 
-        [HttpGet("user")]
-        public IActionResult User()
-        {
-            try
-            {
-                var jwt = Request.Cookies["jwt"];
-
-                var token = jwtService.Verify(jwt);
-
-                int userId = int.Parse(token.Issuer);
-
-                var user = context.Users.SingleOrDefault(u => u.Id == userId);
-
-                return Ok(user);
-            }
-            catch (Exception)
-            {
-                return Unauthorized();
-            }
-
-        }
 
         [HttpPost("logout")]
         public IActionResult Logout()
@@ -143,8 +122,9 @@ namespace PixiuTracker.Controllers
                 BinanceUser user = await getBinanceUser();
 
                 var client = CustomBinanceClient.GetInstance(user.ApiKey, user.ApiSecret);
-                var result = await client.General.GetAccountInfoAsync();
 
+                var result = await client.General.GetAccountInfoAsync();
+                                
                 var portfolioId = user.PortfolioId;
 
                 if (result.Error == null)
