@@ -11,6 +11,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Helpers;
 using ExternalLibrary;
+using System.Text.Json;
+using System.Collections.Generic;
+using PixiuTracker.Forms.Out;
 
 namespace PixiuTracker.Controllers
 {
@@ -137,16 +140,9 @@ namespace PixiuTracker.Controllers
         {
             try
             {
-                var jwt = Request.Cookies["jwt"];
-
-                var token = jwtService.Verify(jwt);
-
-                int userId = int.Parse(token.Issuer);
-
-                var user = context.Users.SingleOrDefault(u => u.Id == userId);
+                BinanceUser user = await getBinanceUser();
 
                 var client = CustomBinanceClient.GetInstance(user.ApiKey, user.ApiSecret);
-
                 var result = await client.General.GetAccountInfoAsync();
 
                 var portfolioId = user.PortfolioId;
@@ -156,33 +152,96 @@ namespace PixiuTracker.Controllers
                     var balance = result.Data.Balances.ToList();
                     foreach (var b in balance)
                     {
-                        if (b.Free > 0)
-                        {
-                            PortfolioCoin portfolioCoin = new PortfolioCoin();
-                            portfolioCoin.PortfolioId = portfolioId;
-                            var coin = context.Coins.SingleOrDefault(c => c.Name == b.Asset);
-                            if (coin != null)
-                            {
-                                portfolioCoin.CoinId = coin.Id;
-                                portfolioCoin.Amount = b.Free;
-                                context.Add(portfolioCoin);
-                            }
-                        }
+                        await CreateOrUpdateCoin(portfolioId, b);
                     }
                     await context.SaveChangesAsync();
                 }
+
+                var coinsInPortfolio = await context.PortfolioCoins
+                    .Include(pc => pc.Coin)
+                    .Where(p => p.PortfolioId == portfolioId).ToListAsync();
+                              
+
+                return Ok(map.Map<IEnumerable<PortfolioCoinForm>>(coinsInPortfolio));
+
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return Unauthorized();
-            }
+            }          
+        }
 
-            return new OkResult();
+        private async Task<BinanceUser> getBinanceUser()
+        {            
+            var jwt = Request.Cookies["jwt"];
+            var token = jwtService.Verify(jwt);
+
+            int userId = int.Parse(token.Issuer);
+            var user = await context.Users.SingleOrDefaultAsync(u => u.Id == userId);
+            return user;      
+            
         }
 
 
+            private async Task CreateOrUpdateCoin(int portfolioId, Binance.Net.Objects.Spot.SpotData.BinanceBalance b)
+        {
+            if (b.Free > 0) {
+                
+                var pCoin = await context.PortfolioCoins
+                    .Include(pc => pc.Coin)
+                    .FirstOrDefaultAsync(pc => pc.PortfolioId == portfolioId && pc.Coin.Name == b.Asset);
 
+                //(var portfolioCoin = context.PortfolioCoins.SingleOrDefault(p => p.PortfolioId == portfolioId && p.CoinId == coin.Id);
 
+                if (pCoin == null)
+                {
+                    var coin = await context.Coins
+                    .SingleOrDefaultAsync(c => c.Name == b.Asset);
+                    if (coin != null)
+                    {
+                        var portfolioCoin = new PortfolioCoin()
+                        {
+                            CoinId = coin.Id,
+                            Amount = b.Free,
+                            PortfolioId = portfolioId
+                        };
+                        context.Add(portfolioCoin);
+                    }              
+                   
+                }
+                else {
+                    pCoin.Amount = b.Free;
+                    context.Update(pCoin);
+                }
+            }        
+        }
 
+        [HttpGet("general-balance")]
+        public async Task<IActionResult> BalanceGeneral()
+        {
+            var coinsInPortfolio = await context.Coins
+                    .Include(c => c.Portfolios)
+                    .Where(pc => pc.Portfolios.Any(p=> p.Amount != 0))
+                    .ToListAsync();
+
+            Dictionary<string, double> dic = new Dictionary<string, double>();
+
+            double sum;
+
+            foreach (var c in coinsInPortfolio)
+            {
+                sum = 0;
+                foreach (var pc in c.Portfolios)
+                {
+                    sum += ((double)pc.Amount * c.Price);
+                }
+
+                dic.Add(c.Name, sum);
+            }
+
+            var result = dic.Select(entry => new TotalCoinBalance() { Name = entry.Key, Value = entry.Value }).OrderByDescending(c => c.Value).ToList();
+
+            return Ok(result);   
+        }
     }
 }

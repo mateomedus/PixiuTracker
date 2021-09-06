@@ -15,7 +15,7 @@ namespace DatabaseContext
 
         public virtual DbSet<Portfolio> Portfolios { get; set; }
 
-        //public virtual DbSet<PortfolioCoin> PortfolioCoins{ get; set; }
+        public virtual DbSet<PortfolioCoin> PortfolioCoins{ get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DatabaseContext.Models;
 using PixiuTracker.Forms;
+using PixiuTracker.Forms.Out;
 using System.Web.Helpers;
 
 namespace Mappings
@@ -13,7 +14,10 @@ namespace Mappings
             // Si hay diferente nombre o hay que hacer lógica extra (hashear la pass) se la define acá
             CreateMap<RegisterUserForm, BinanceUser>()
                 .ForMember(dest => dest.Password, opt => opt.MapFrom(src => Crypto.HashPassword(src.Password)));
-            
+
+            CreateMap<PortfolioCoin, PortfolioCoinForm>()
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Coin.Price))
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Coin.Name));
         }
     }
 }

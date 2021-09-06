@@ -6,9 +6,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace DatabaseContext.Models
 {
     [Table(nameof(PortfolioCoin))]
-    public class PortfolioCoin{
-
-        
+    public class PortfolioCoin
+    {   
         [Key]
         public int PortfolioId { get; set; }
         [Key]
@@ -20,10 +19,8 @@ namespace DatabaseContext.Models
         [ForeignKey(nameof(CoinId))]
         public Coin Coin { get; set; }
 
-
         [Required]
         public decimal Amount { get; set; }
 
-
-        }
+    }
 }
