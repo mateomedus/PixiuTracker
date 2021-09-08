@@ -17,6 +17,8 @@ namespace DatabaseContext
 
         public virtual DbSet<PortfolioCoin> PortfolioCoins{ get; set; }
 
+        public virtual DbSet<CoinHistory> CoinHistorys { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BinanceUser>()

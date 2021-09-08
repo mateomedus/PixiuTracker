@@ -86,6 +86,29 @@ namespace DatabaseContext.Migrations
                     b.ToTable("Coin");
                 });
 
+            modelBuilder.Entity("DatabaseContext.Models.CoinHistory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Date")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasMaxLength(15)
+                        .HasColumnType("character varying(15)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("double precision");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CoinHistorys");
+                });
+
             modelBuilder.Entity("DatabaseContext.Models.Portfolio", b =>
                 {
                     b.Property<int>("Id")

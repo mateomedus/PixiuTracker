@@ -124,6 +124,10 @@
               "target": "Package",
               "version": "[5.0.9, )"
             },
+            "Microsoft.OData.Edm": {
+              "target": "Package",
+              "version": "[7.9.1, )"
+            },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
               "version": "[5.0.7, )"

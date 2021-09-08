@@ -114,6 +114,71 @@ namespace PixiuTracker.Controllers
 
         }
 
+        [HttpGet("prices")]
+        public async Task<IActionResult> GetPrices()
+        {
+            
+            var client = CustomBinanceClient.GetInstance("azmnlAv1bBa5mpk6XMkwSPcQEEFuMUwrlXRtD6ownafLPjRObaWCHqAyWDEaSVgb", "uZ4pAe8ihACDZbgjs2Z5mVmRHItZBckyv6bEA4HbWXPK1wrDOP8wv8OFvE06mPm9");
+
+            var prices = client.Spot.Market.GetPricesAsync().Result;
+                              
+            var usdtPrices = prices.Data.OrderBy(p => p.Symbol).Where(p => p.Symbol.EndsWith("USDT")).ToList();
+
+
+
+            string coinWithoutUSDT;
+
+            Coin coinDb;
+
+            CoinHistory coinHistoryDb;
+
+            CoinHistory coinHistory = await context.CoinHistorys.FirstOrDefaultAsync(ch => ch.Date == DateTime.Today.ToString());
+
+            
+            //CoinHistory lruCoinHistory = await context.CoinHistorys.FirstOrDefaultAsync(ch => ch.Date == DateTime.Today.ToString());
+
+
+
+            foreach (var coin in usdtPrices)
+            {
+                coinWithoutUSDT = coin.Symbol.Replace("USDT", string.Empty);
+
+                coinDb = await context.Coins.FirstOrDefaultAsync(c => c.Name == coinWithoutUSDT);
+
+                if(coinHistory == null)
+                {
+                    coinHistoryDb = new CoinHistory()
+                    {
+                        Name = coinWithoutUSDT,
+                        Price = (double)coin.Price,
+                        Date = DateTime.Today.ToString(),
+                    };
+                    context.Add(coinHistoryDb);
+                }
+
+
+                if(coinDb != null)
+                {
+                    coinDb.Price = (double)coin.Price;
+                    context.Update(coinDb);
+                }
+                else
+                {
+                    coinDb = new Coin()
+                    {
+                        Name = coinWithoutUSDT,
+                        Price = (double) coin.Price,
+                    };
+                    context.Add(coinDb);
+                }               
+            }
+
+            await context.SaveChangesAsync();
+            
+            return Ok();        
+        }
+
+
         [HttpGet("portfolio")]
         public async Task<IActionResult> Portfolio() 
         {
@@ -195,6 +260,9 @@ namespace PixiuTracker.Controllers
                 }
             }        
         }
+
+
+
 
         [HttpGet("general-balance")]
         public async Task<IActionResult> BalanceGeneral()

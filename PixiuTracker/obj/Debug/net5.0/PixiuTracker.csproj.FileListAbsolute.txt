@@ -102,3 +102,4 @@ C:\Users\aguss\source\repos\PixiuTracker\PixiuTracker\bin\Debug\net5.0\CryptoExc
 C:\Users\aguss\source\repos\PixiuTracker\PixiuTracker\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\aguss\source\repos\PixiuTracker\PixiuTracker\bin\Debug\net5.0\BinanceClient.dll
 C:\Users\aguss\source\repos\PixiuTracker\PixiuTracker\bin\Debug\net5.0\BinanceClient.pdb
+C:\Users\aguss\source\repos\PixiuTracker\PixiuTracker\bin\Debug\net5.0\Microsoft.OData.Edm.dll
