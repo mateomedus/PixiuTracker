@@ -132,7 +132,7 @@ namespace PixiuTracker.Controllers
 
             CoinHistory coinHistoryDb;
 
-            CoinHistory coinHistory = await context.CoinHistorys.FirstOrDefaultAsync(ch => ch.Date == DateTime.Today.ToString());
+            CoinHistory coinHistory = await context.CoinHistorys.FirstOrDefaultAsync(ch => ch.Date == DateTime.Today.ToShortDateString());
 
             
             //CoinHistory lruCoinHistory = await context.CoinHistorys.FirstOrDefaultAsync(ch => ch.Date == DateTime.Today.ToString());
