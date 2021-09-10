@@ -43,7 +43,7 @@ namespace PixiuTracker.Controllers
             // Pero si es necesario, hay que aplicar logica sobre las inputs 
             // Por ejemplo acá podrían checkear que efectivamente el email sea un email o cosas asi. Ya que, si bien el framework se asegura que te llegue algo en email, no te puede asegura que carajo te mandaron.
 
-            var binanceClient = CustomBinanceClient.GetInstance(registerForm.ApiKey, registerForm.ApiSecret);            
+            var binanceClient = CustomBinanceClient.GetInstance(registerForm.ApiKey, registerForm.ApiSecret);
 
             var result = await binanceClient.General.GetAccountInfoAsync();
 
@@ -117,11 +117,11 @@ namespace PixiuTracker.Controllers
         [HttpGet("prices")]
         public async Task<IActionResult> GetPrices()
         {
-            
+
             var client = CustomBinanceClient.GetInstance("azmnlAv1bBa5mpk6XMkwSPcQEEFuMUwrlXRtD6ownafLPjRObaWCHqAyWDEaSVgb", "uZ4pAe8ihACDZbgjs2Z5mVmRHItZBckyv6bEA4HbWXPK1wrDOP8wv8OFvE06mPm9");
 
             var prices = client.Spot.Market.GetPricesAsync().Result;
-                              
+
             var usdtPrices = prices.Data.OrderBy(p => p.Symbol).Where(p => p.Symbol.EndsWith("USDT")).ToList();
 
 
@@ -135,7 +135,7 @@ namespace PixiuTracker.Controllers
 
             int snapshotNmb = coinHistorySnapshot != null ? coinHistorySnapshot.Snapshot : 0;
 
-             
+
 
             foreach (var coin in usdtPrices)
             {
@@ -149,8 +149,8 @@ namespace PixiuTracker.Controllers
             }
 
             await context.SaveChangesAsync();
-            
-            return Ok();        
+
+            return Ok();
         }
 
         private void CreateOrUpdateCoinHistory(string coinWithoutUSDT, CoinHistory coinHistorySnapshot, int snapshotNmb, Binance.Net.Objects.Spot.MarketData.BinancePrice coin)
@@ -204,7 +204,7 @@ namespace PixiuTracker.Controllers
         }
 
         [HttpGet("portfolio")]
-        public async Task<IActionResult> Portfolio() 
+        public async Task<IActionResult> Portfolio()
         {
             try
             {
@@ -213,7 +213,7 @@ namespace PixiuTracker.Controllers
                 var client = CustomBinanceClient.GetInstance(user.ApiKey, user.ApiSecret);
 
                 var result = await client.General.GetAccountInfoAsync();
-                                
+
                 var portfolioId = user.PortfolioId;
 
                 if (result.Error == null)
@@ -229,7 +229,7 @@ namespace PixiuTracker.Controllers
                 var coinsInPortfolio = await context.PortfolioCoins
                     .Include(pc => pc.Coin)
                     .Where(p => p.PortfolioId == portfolioId).ToListAsync();
-                              
+
 
                 return Ok(map.Map<IEnumerable<PortfolioCoinForm>>(coinsInPortfolio));
 
@@ -237,25 +237,26 @@ namespace PixiuTracker.Controllers
             catch (Exception e)
             {
                 return Unauthorized();
-            }          
+            }
         }
 
         private async Task<BinanceUser> getBinanceUser()
-        {            
+        {
             var jwt = Request.Cookies["jwt"];
             var token = jwtService.Verify(jwt);
 
             int userId = int.Parse(token.Issuer);
             var user = await context.Users.SingleOrDefaultAsync(u => u.Id == userId);
-            return user;      
-            
+            return user;
+
         }
 
 
-            private async Task CreateOrUpdateCoin(int portfolioId, Binance.Net.Objects.Spot.SpotData.BinanceBalance b)
+        private async Task CreateOrUpdateCoin(int portfolioId, Binance.Net.Objects.Spot.SpotData.BinanceBalance b)
         {
-            if (b.Free > 0) {
-                
+            if (b.Free > 0)
+            {
+
                 var pCoin = await context.PortfolioCoins
                     .Include(pc => pc.Coin)
                     .FirstOrDefaultAsync(pc => pc.PortfolioId == portfolioId && pc.Coin.Name == b.Asset);
@@ -275,14 +276,15 @@ namespace PixiuTracker.Controllers
                             PortfolioId = portfolioId
                         };
                         context.Add(portfolioCoin);
-                    }              
-                   
+                    }
+
                 }
-                else {
+                else
+                {
                     pCoin.Amount = b.Free;
                     context.Update(pCoin);
                 }
-            }        
+            }
         }
 
 
@@ -293,7 +295,7 @@ namespace PixiuTracker.Controllers
         {
             var coinsInPortfolio = await context.Coins
                     .Include(c => c.Portfolios)
-                    .Where(pc => pc.Portfolios.Any(p=> p.Amount != 0))
+                    .Where(pc => pc.Portfolios.Any(p => p.Amount != 0))
                     .ToListAsync();
 
             Dictionary<string, double> dic = new Dictionary<string, double>();
@@ -313,7 +315,18 @@ namespace PixiuTracker.Controllers
 
             var result = dic.Select(entry => new TotalCoinBalance() { Name = entry.Key, Value = entry.Value }).OrderByDescending(c => c.Value).ToList();
 
-            return Ok(result);   
+            return Ok(result);
         }
+
+
+        [HttpGet("coin-history")]
+        public async Task<IActionResult> CoinHistory(string coinName)
+        {
+            var coinHistory = context.CoinHistorys;
+
+            return Ok(coinHistory);
+        }
+        
+
     }
 }
