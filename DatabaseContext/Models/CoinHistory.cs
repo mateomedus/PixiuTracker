@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 namespace DatabaseContext.Models
 {
+    [Table(nameof(CoinHistory))]
     public class CoinHistory
     {
         [Key]
@@ -17,7 +18,7 @@ namespace DatabaseContext.Models
         public double Price { get; set; }
 
         [Required]
-        public string Date { get; set; }
+        public int Snapshot { get; set; }
 
     }
 }

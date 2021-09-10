@@ -93,10 +93,6 @@ namespace DatabaseContext.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Date")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Name")
                         .HasMaxLength(15)
                         .HasColumnType("character varying(15)");
@@ -104,9 +100,12 @@ namespace DatabaseContext.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("double precision");
 
+                    b.Property<int>("Snapshot")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
-                    b.ToTable("CoinHistorys");
+                    b.ToTable("CoinHistory");
                 });
 
             modelBuilder.Entity("DatabaseContext.Models.Portfolio", b =>

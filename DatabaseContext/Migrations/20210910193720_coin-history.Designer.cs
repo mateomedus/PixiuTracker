@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DatabaseContext.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20210907233017_coin-history")]
+    [Migration("20210910193720_coin-history")]
     partial class coinhistory
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -95,10 +95,6 @@ namespace DatabaseContext.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Date")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Name")
                         .HasMaxLength(15)
                         .HasColumnType("character varying(15)");
@@ -106,9 +102,12 @@ namespace DatabaseContext.Migrations
                     b.Property<double>("Price")
                         .HasColumnType("double precision");
 
+                    b.Property<int>("Snapshot")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
-                    b.ToTable("CoinHistorys");
+                    b.ToTable("CoinHistory");
                 });
 
             modelBuilder.Entity("DatabaseContext.Models.Portfolio", b =>

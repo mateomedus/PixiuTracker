@@ -30,12 +30,15 @@ namespace DatabaseContext
                 .HasIndex(u => u.Email)
                 .IsUnique()
                 .HasDatabaseName("IX_BinanceUser_Email");
+
             modelBuilder.Entity<PortfolioCoin>().HasKey(sc => new { sc.PortfolioId, sc.CoinId });
 
             modelBuilder.Entity<Coin>()
                 .HasIndex(c => c.Name)
                 .IsUnique()
                 .HasDatabaseName("IX_Coin_Id");
+
+            
         }
     }
 }
