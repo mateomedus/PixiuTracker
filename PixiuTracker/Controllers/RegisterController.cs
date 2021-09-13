@@ -130,20 +130,13 @@ namespace PixiuTracker.Controllers
 
             Coin coinDb;
 
-            //Ultima row de BTC en CoinHistory 
-            var coinHistorySnapshot = context.CoinHistorys.OrderBy(ch => ch.Snapshot).LastOrDefault(c => c.Name == "BTC");
-
-            int snapshotNmb = coinHistorySnapshot != null ? coinHistorySnapshot.Snapshot : 0;
-
-
+          
 
             foreach (var coin in usdtPrices)
             {
                 coinWithoutUSDT = coin.Symbol.Replace("USDT", string.Empty);
 
-                coinDb = await context.Coins.FirstOrDefaultAsync(c => c.Name == coinWithoutUSDT);
-
-                CreateOrUpdateCoinHistory(coinWithoutUSDT, coinHistorySnapshot, snapshotNmb, coin);
+                coinDb = await context.Coins.FirstOrDefaultAsync(c => c.Name == coinWithoutUSDT);                              
 
                 coinDb = CreateOrUpdateCoin(coinWithoutUSDT, coinDb, coin);
             }
@@ -152,6 +145,7 @@ namespace PixiuTracker.Controllers
 
             return Ok();
         }
+
 
         private void CreateOrUpdateCoinHistory(string coinWithoutUSDT, CoinHistory coinHistorySnapshot, int snapshotNmb, Binance.Net.Objects.Spot.MarketData.BinancePrice coin)
         {
@@ -170,7 +164,10 @@ namespace PixiuTracker.Controllers
             {
                 int snapshotRemove = snapshotNmb - 9;
                 CoinHistory coinHistoryRemove = context.CoinHistorys.FirstOrDefault(c => c.Snapshot == snapshotRemove && c.Name == coinWithoutUSDT);
-                context.Remove(coinHistoryRemove);
+                if(coinHistoryRemove!= null)
+                {
+                    context.Remove(coinHistoryRemove);
+                }
 
                 coinHistoryDb = new CoinHistory()
                 {
@@ -201,6 +198,37 @@ namespace PixiuTracker.Controllers
             }
 
             return coinDb;
+        }
+
+
+        [HttpGet("snapshots")]
+        public async Task<IActionResult> GetSnapshots()
+        {
+
+            var client = CustomBinanceClient.GetInstance("azmnlAv1bBa5mpk6XMkwSPcQEEFuMUwrlXRtD6ownafLPjRObaWCHqAyWDEaSVgb", "uZ4pAe8ihACDZbgjs2Z5mVmRHItZBckyv6bEA4HbWXPK1wrDOP8wv8OFvE06mPm9");
+
+            var prices = client.Spot.Market.GetPricesAsync().Result;
+
+            var usdtPrices = prices.Data.OrderBy(p => p.Symbol).Where(p => p.Symbol.EndsWith("USDT")).ToList();
+
+            string coinWithoutUSDT;            
+
+            //Ultima row de BTC en CoinHistory 
+            var coinHistorySnapshot = context.CoinHistorys.OrderBy(ch => ch.Snapshot).LastOrDefault(c => c.Name == "BTC");
+
+            int snapshotNmb = coinHistorySnapshot != null ? coinHistorySnapshot.Snapshot : 0;
+
+            foreach (var coin in usdtPrices)
+            {
+                coinWithoutUSDT = coin.Symbol.Replace("USDT", string.Empty);               
+
+                CreateOrUpdateCoinHistory(coinWithoutUSDT, coinHistorySnapshot, snapshotNmb, coin);
+                
+            }
+
+            await context.SaveChangesAsync();
+
+            return Ok();
         }
 
         [HttpGet("portfolio")]
@@ -322,7 +350,7 @@ namespace PixiuTracker.Controllers
         [HttpGet("coin-history")]
         public async Task<IActionResult> CoinHistory(string coinName)
         {
-            var coinHistory = context.CoinHistorys;
+            var coinHistory = context.CoinHistorys.Where(c => c.Name == coinName).ToList();
 
             return Ok(coinHistory);
         }
