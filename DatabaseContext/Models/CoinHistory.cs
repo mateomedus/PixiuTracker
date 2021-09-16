@@ -20,5 +20,8 @@ namespace DatabaseContext.Models
         [Required]
         public int Snapshot { get; set; }
 
+        [Required]
+        public string Date { get; set; }
+
     }
 }

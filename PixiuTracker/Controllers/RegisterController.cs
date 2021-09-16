@@ -157,6 +157,7 @@ namespace PixiuTracker.Controllers
                     Name = coinWithoutUSDT,
                     Price = (double)coin.Price,
                     Snapshot = snapshotNmb + 1,
+                    Date = DateTime.Now.Hour.ToString(),
                 };
                 context.Add(coinHistoryDb);
             }
@@ -174,6 +175,7 @@ namespace PixiuTracker.Controllers
                     Name = coinWithoutUSDT,
                     Price = (double)coin.Price,
                     Snapshot = snapshotNmb + 1,
+                    Date = DateTime.Now.Hour.ToString(),
                 };
                 context.Add(coinHistoryDb);
 
@@ -215,18 +217,23 @@ namespace PixiuTracker.Controllers
 
             //Ultima row de BTC en CoinHistory 
             var coinHistorySnapshot = context.CoinHistorys.OrderBy(ch => ch.Snapshot).LastOrDefault(c => c.Name == "BTC");
+            var dateCoinHistorySnapshot = coinHistorySnapshot.Date;
 
-            int snapshotNmb = coinHistorySnapshot != null ? coinHistorySnapshot.Snapshot : 0;
-
-            foreach (var coin in usdtPrices)
+            if (dateCoinHistorySnapshot != DateTime.Now.Hour.ToString())
             {
-                coinWithoutUSDT = coin.Symbol.Replace("USDT", string.Empty);               
 
-                CreateOrUpdateCoinHistory(coinWithoutUSDT, coinHistorySnapshot, snapshotNmb, coin);
-                
+                int snapshotNmb = coinHistorySnapshot != null ? coinHistorySnapshot.Snapshot : 0;
+
+                foreach (var coin in usdtPrices)
+                {
+                    coinWithoutUSDT = coin.Symbol.Replace("USDT", string.Empty);
+
+                    CreateOrUpdateCoinHistory(coinWithoutUSDT, coinHistorySnapshot, snapshotNmb, coin);
+
+                }
+
+                await context.SaveChangesAsync();
             }
-
-            await context.SaveChangesAsync();
 
             return Ok();
         }
@@ -350,7 +357,7 @@ namespace PixiuTracker.Controllers
         [HttpGet("coin-history")]
         public async Task<IActionResult> CoinHistory(string coinName)
         {
-            var coinHistory = context.CoinHistorys.Where(c => c.Name == coinName).ToList();
+            var coinHistory = context.CoinHistorys.Where(c => c.Name == coinName).OrderBy(c => c.Snapshot).ToList();
 
             return Ok(coinHistory);
         }
